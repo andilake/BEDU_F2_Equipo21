@@ -31,11 +31,7 @@ Se necesita encontrar si existe relación entre el nivel socioeconómico de las 
 
 Se crea el dataframe desde el archivo CSV inseguridad_alimentaria_bedu.csv. Usando las funciones class, str y dim se analiza la estructura de este y se concluye que debe ser limpiado.
 
-Se seleccionan únicamente las variables que interesan usando la función select, las cuales son nse5f, numpeho, refin, ln_als, ln_alns e IA. Posteriormente, se eliminan los casos incompletos.
-
-A continuación se realizó un paso adicional para corroborar si el gasto alimentario estaba influenciado por el número de personas en la unidad familiar, pero esto fue descartado usando los residuales estandarizados.
-
-Se regresa al paso anterior y se seleccionan nuevamente las variables de interés, descartando ahora el número de personas, y se vuelven a limpiar los casos incompletos.
+Se seleccionan únicamente las variables que interesan usando la función select, las cuales son nse5f, refin, ln_als, ln_alns e IA. Posteriormente, se eliminan los casos incompletos.
 
 Usando la función factor, se etiquetan los valores de nse5f, refin e IA para poder usarlos correctamente.
 
