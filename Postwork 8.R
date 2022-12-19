@@ -32,21 +32,6 @@
 # ln_alns (Logaritmo natural del gasto en alimentos no saludables)
 # IA (Inseguridad alimentaria en el hogar): 0 "No presenta IA", 1 "Presenta IA"
 
-"Creación del data frame"
-
-df<-read.csv("inseguridad_alimentaria_bedu.csv")
-
-"Análisis de estructura del data frame"
-
-class(df)
-str(df)
-dim(df)
-
-View(df)
-
-library(DescTools)
-CountCompCases(df)
-
 # Plantea el problema del caso
 # Realiza un análisis descriptivo de la información
 # Calcula probabilidades que nos permitan entender el problema en México
@@ -58,8 +43,23 @@ CountCompCases(df)
 personas, el gasto que hacen en productos saludables y no saludables y la
 inseguridad alimentaria."
 
+"Creación del data frame"
+
+df<-read.csv("https://raw.githubusercontent.com/andilake/BEDU_F2_Equipo21/main/inseguridad_alimentaria_bedu.csv")
+
+"Análisis de estructura del data frame"
+
+class(df)
+str(df)
+dim(df)
+
+View(df)
+
 "Para empezar, hay que limpiar el data frame quitando los datos que son
 irrelevantes para nuestro análisis."
+
+library(DescTools)
+CountCompCases(df)
 
 library(dplyr)
 
@@ -67,7 +67,7 @@ df.select <- select(df, nse5f, numpeho, refin, ln_als, ln_alns, IA)
 str(df.select)
 CountCompCases(df.select)
 
-df.clean <- na.omit(df.select)
+df.clean <- df.select[complete.cases(df.select),]
 
 str(df.clean)
 summary(df.clean)
@@ -104,7 +104,9 @@ nse5f.factor <- factor(df.clean$nse5f, levels = c(1 = "Bajo", 2 = "Medio bajo", 
 refin.factor <- factor(df.clean$refin, labels = c("No", "Sí"))
 IA.factor <- factor(df.clean$IA, labels = c("No presenta IA", "Presenta IA"))
 
-summary(df.clean)
+summary(nse5f.factor)
+summary(refin.factor)
+summary(IA.factor)
 
 attach(df.clean)
 
@@ -190,10 +192,13 @@ plot(IA, StanRes3, ylab = "Residuales Estandarizados")
 
 dev.off()
 
+"Ho: La variable distribuye como una normal
+Ha: La variable no distribuye como una normal"
+
 shapiro.test(head(StanRes3))
 
-"Con un nivel de confianza de 95% se acepta que el error distribuye como una
-normal."
+"Con un nivel de confianza de 95% se acepta Ho, es decir, que el error distribuye
+como una normal."
 
 data <- data.frame(
   ln_als = c(0, 3, 6, 10),
