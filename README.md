@@ -72,12 +72,12 @@ Se crean histogramas de gasto en alimentos y se descubre que la distribución pa
 
 Se generan las gráficas de correlación de nse5f, refin, ln_als, ln_alns e IA, pero al ser variables discretas es difícil ver la correlación. Se crea entonces el modelo lineal donde se compara el nivel socioeconómico con el resto de las variables y queda de la siguiente forma:
 
-             Estimate Std. Error t value Pr(>|t|)    
-(Intercept) -0.850697   0.077422 -10.988  < 2e-16 ***
-refin       -0.148547   0.020800  -7.142 9.49e-13 ***
-ln_als       0.573267   0.012628  45.397  < 2e-16 ***
-ln_alns      0.224713   0.008303  27.065  < 2e-16 ***
-IA          -0.680080   0.018087 -37.600  < 2e-16 ***
+- Estimate Std. Error t value Pr(>|t|)
+- (Intercept) -0.850697   0.077422 -10.988  < 2e-16
+- refin       -0.148547   0.020800  -7.142 9.49e-13
+- ln_als       0.573267   0.012628  45.397  < 2e-16
+- ln_alns      0.224713   0.008303  27.065  < 2e-16
+- IA          -0.680080   0.018087 -37.600  < 2e-16
 
 Con esto descartamos que los recursos financieros distintos al ingreso laboral estén relacionados con el nivel socioeconómico, por lo que lo quitamos del modelo y posteriormente comprobamos que el error del modelo distribuye como una normal.
 
