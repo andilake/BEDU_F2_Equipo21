@@ -58,39 +58,6 @@ View(df)
 "Para empezar, hay que limpiar el data frame quitando los datos que son
 irrelevantes para nuestro análisis."
 
-library(DescTools)
-CountCompCases(df)
-
-library(dplyr)
-
-df.select <- select(df, nse5f, numpeho, refin, ln_als, ln_alns, IA)
-str(df.select)
-CountCompCases(df.select)
-
-df.clean <- df.select[complete.cases(df.select),]
-
-str(df.clean)
-summary(df.clean)
-
-"Buscar si hay relación entre el gasto alimentario y el número de personas."
-
-ln_altot <- df.clean$ln_als + df.clean$ln_alns
-
-pairs(~df.clean$numpeho + ln_altot)
-m1 <- lm(df.clean$numpeho ~ ln_altot)
-
-summary(m1)
-
-StanRes1 <- rstandard(m1)
-
-plot(ln_altot, StanRes1, ylab = "Residuales Estandarizados")
-
-shapiro.test(head(StanRes1,500))
-
-"La distribución no es normal, por lo que no se cumple con el segundo supuesto
-del modelo de regresión lineal y descartamos que haya relación entre el gasto
-alimentario y el número de personas."
-
 df.select <- select(df, nse5f, refin, ln_als, ln_alns, IA)
 str(df.select)
 CountCompCases(df.select)
@@ -100,7 +67,7 @@ df.clean <- df.select[complete.cases(df.select),]
 str(df.clean)
 summary(df.clean)
 
-nse5f.factor <- factor(df.clean$nse5f, levels = c(1 = "Bajo", 2 = "Medio bajo", 3 = "Medio", 4 = "Medio alto", 5 = "Alto"), ordered = TRUE)
+nse5f.factor <- factor(df.clean$nse5f, labels = c("Bajo", "Medio bajo", "Medio", "Medio alto", "Alto"), ordered = TRUE)
 refin.factor <- factor(df.clean$refin, labels = c("No", "Sí"))
 IA.factor <- factor(df.clean$IA, labels = c("No presenta IA", "Presenta IA"))
 
@@ -173,29 +140,23 @@ ln_alns.sd <- sd(ln_alns)
 pairs(~ nse5f + refin + ln_als + ln_alns + IA, 
             data = df.clean, gap = 0.4, cex.labels = 1.5)
 
-m2 <- lm(nse5f ~ refin + ln_als + ln_alns + IA)
-summary(m2)
+m1 <- lm(nse5f ~ refin + ln_als + ln_alns + IA)
+summary(m1)
 
-"Los recursos financieros distintos al ingreso no parecen tener relevancia por 
-lo que se omiten del modelo."
-
-m3 <- update(m2, ~.-refin)
-summary(m3)
-
-StanRes3 <- rstandard(m3)
+StanRes1 <- rstandard(m1)
 
 par(mfrow=c(2,2))
 
-plot(ln_als, StanRes3, ylab = "Residuales Estandarizados")
-plot(ln_alns, StanRes3, ylab = "Residuales Estandarizados")
-plot(IA, StanRes3, ylab = "Residuales Estandarizados")
+plot(ln_als, StanRes1, ylab = "Residuales Estandarizados")
+plot(ln_alns, StanRes1, ylab = "Residuales Estandarizados")
+plot(IA, StanRes1, ylab = "Residuales Estandarizados")
 
 dev.off()
 
 "Ho: La variable distribuye como una normal
 Ha: La variable no distribuye como una normal"
 
-shapiro.test(head(StanRes3))
+shapiro.test(head(StanRes2))
 
 "Con un nivel de confianza de 95% se acepta Ho, es decir, que el error distribuye
 como una normal."
@@ -203,7 +164,8 @@ como una normal."
 data <- data.frame(
   ln_als = c(0, 3, 6, 10),
   ln_alns = c(10, 6, 3, 0),
-  IA = c(1, 0, 1, 0)
+  IA = c(1, 0, 1, 0),
+  refin = c(1, 1, 0, 0)
 )
 
 predict(m3, newdata = data, interval = "confidence", level = 0.95)
