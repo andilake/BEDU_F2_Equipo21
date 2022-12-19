@@ -64,7 +64,7 @@ Medidas de tendencia central para gasto en alimentos no saludables:
 - Moda: 3.401
 - Mediana: 4.025
 
-Se crean histogramas de gasto en alimentos y se descubre que la distribución parece ser normal, por lo que se genera su gráfica de distribución normal. También se crean gráficos de barras del nivel socioeconómico, los recursos financieros distintos al ingreso y la inseguridad alimentaria).
+Se crean histogramas de gasto en alimentos y se descubre que la distribución parece ser normal, por lo que se genera su gráfica de distribución normal. También se crean gráficos de barras del nivel socioeconómico, los recursos financieros distintos al ingreso y la inseguridad alimentaria.
 
 Se generan las gráficas de correlación de nse5f, refin, ln_als, ln_alns e IA, pero al ser variables discretas es difícil ver la correlación. Se crea entonces el modelo lineal donde se compara el nivel socioeconómico con el resto de las variables y queda de la siguiente forma:
 
@@ -75,6 +75,6 @@ Se generan las gráficas de correlación de nse5f, refin, ln_als, ln_alns e IA, 
 - ln_alns      0.224713   0.008303  27.065  < 2e-16
 - IA          -0.680080   0.018087 -37.600  < 2e-16
 
-Con esto descartamos que los recursos financieros distintos al ingreso laboral estén relacionados con el nivel socioeconómico, por lo que lo quitamos del modelo y posteriormente comprobamos que el error del modelo distribuye como una normal.
+Posteriormente comprobamos que el error del modelo distribuye como una normal.
 
 Finalmente, usando valores aleatorios generamos una predicción. Y se concluye que al utilizar un gasto elevado en comida no saludable e inseguridad alimenticia se obtiene un nivel socioeconómico cercano a 1 (Bajo), y en el caso contrario, se obtiene un nivel cercano a 5 (Alto), por lo que el modelo cumple con la hipótesis planteada en un inicio de que un nivel socioeconómico bajo se relaciona con un gasto más elevado de comida no saludable y por tanto inseguridad alimenticia.
