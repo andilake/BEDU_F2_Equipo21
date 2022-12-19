@@ -1,4 +1,4 @@
-#Postworks del Equipo 21
+# Postworks del Equipo 21
 ## Andrea Lagunes Kern
 
 En este repositorio se encuentran los postworks del módulo Programación y estadística con R.
